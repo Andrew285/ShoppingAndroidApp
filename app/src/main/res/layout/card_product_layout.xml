@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_layout"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#F8F9FB"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp"
+    app:cardPreventCornerOverlap="true"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/product_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            />
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/card_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dividerInsetStart="16dp"
+            app:dividerInsetEnd="16dp"
+            app:dividerThickness="2dp"
+            app:dividerColor="@color/black"
+            android:layout_below="@+id/product_imageView"/>
+
+        <TextView
+            android:id="@+id/product_name_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_divider"
+            android:text="Product Name"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/category_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_name_textView"
+            android:text="Category"
+            />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

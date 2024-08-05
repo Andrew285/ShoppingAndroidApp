@@ -5,6 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.shoppingapp.databinding.FragmentHomeBinding
+import com.example.shoppingapp.viewmodel.MainActivityViewModel
+import com.example.shoppingapp.viewmodel.UiState
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +29,13 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val viewModel: MainActivityViewModel by viewModels()
+    private val binding by lazy {
+        FragmentHomeBinding.inflate(
+            layoutInflater
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,7 +49,57 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+//        val recommendedProductsList: ArrayList<Product> = ArrayList()
+//        recommendedProductsList.add(Product("Apple", "Fruits"))
+//        recommendedProductsList.add(Product("Banana", "Fruits"))
+        viewModel.uiState()
+            .observe(requireActivity(), Observer { uiState ->
+                if (uiState != null) {
+                    render(uiState)
+                }
+            })
+
+        viewModel.loadProductData()
+
+        return view
+    }
+
+    private fun onLoad() = with(binding) {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun onSuccess(uiState: UiState.Success) = with(binding) {
+        progressBar.visibility = View.GONE
+        val recommendedProductsRV = view?.findViewById<RecyclerView>(R.id.recommended_recyclerView)
+        val linearLayoutManager = LinearLayoutManager(view?.context, RecyclerView.HORIZONTAL, false)
+        val adapter = view?.let { ProductAdapter(it.context, uiState.productsList) }
+        if (recommendedProductsRV != null) {
+            recommendedProductsRV.layoutManager = linearLayoutManager
+        }
+        if (recommendedProductsRV != null) {
+            recommendedProductsRV.adapter = adapter
+        }
+    }
+
+    private fun onError(uiState: UiState.Error) = with(binding) {
+        progressBar.visibility = View.GONE
+        Toast.makeText(context, uiState.message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun render(uiState: UiState) {
+        when (uiState) {
+            is UiState.Loading -> {
+                onLoad()
+            }
+            is UiState.Success -> {
+                onSuccess(uiState)
+            }
+            is UiState.Error -> {
+                onError(uiState)
+            }
+        }
     }
 
     companion object {
