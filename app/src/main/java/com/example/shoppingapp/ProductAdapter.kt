@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.shoppingapp.retrofit.ProductModel
+import com.example.shoppingapp.model.ProductModel
 
 class ProductAdapter(private val context: Context, private val productList: ArrayList<ProductModel>):
 RecyclerView.Adapter<ProductAdapter.ViewHolder>()

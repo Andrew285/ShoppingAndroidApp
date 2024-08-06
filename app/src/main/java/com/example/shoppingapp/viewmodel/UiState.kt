@@ -1,6 +1,6 @@
 package com.example.shoppingapp.viewmodel
 
-import com.example.shoppingapp.retrofit.ProductModel
+import com.example.shoppingapp.model.ProductModel
 
 sealed class UiState {
 

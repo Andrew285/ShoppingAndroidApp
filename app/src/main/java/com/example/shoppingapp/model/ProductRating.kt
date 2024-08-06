@@ -1,4 +1,4 @@
-package com.example.shoppingapp.retrofit
+package com.example.shoppingapp.model
 
 data class ProductRating(
     val rate: Float,

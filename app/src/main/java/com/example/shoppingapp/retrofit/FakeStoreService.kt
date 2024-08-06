@@ -1,5 +1,6 @@
 package com.example.shoppingapp.retrofit
 
+import com.example.shoppingapp.model.ProductModel
 import retrofit2.http.GET
 
 interface FakeStoreService {

@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,44 +32,34 @@ class HomeFragment : Fragment() {
     private var param2: String? = null
 
     private val viewModel: MainActivityViewModel by viewModels()
-    private val binding by lazy {
-        FragmentHomeBinding.inflate(
-            layoutInflater
-        )
-    }
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-//        val recommendedProductsList: ArrayList<Product> = ArrayList()
-//        recommendedProductsList.add(Product("Apple", "Fruits"))
-//        recommendedProductsList.add(Product("Banana", "Fruits"))
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater,container,false);
         viewModel.uiState()
-            .observe(requireActivity(), Observer { uiState ->
+            .observe(viewLifecycleOwner, Observer { uiState ->
                 if (uiState != null) {
                     render(uiState)
                 }
             })
-
         viewModel.loadProductData()
 
-        return view
+        return binding.root
     }
 
-    private fun onLoad() = with(binding) {
-        progressBar.visibility = View.VISIBLE
+    private fun onLoad() {
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun onSuccess(uiState: UiState.Success) = with(binding) {

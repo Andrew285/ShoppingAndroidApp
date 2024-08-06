@@ -2,7 +2,7 @@ package com.example.shoppingapp.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.example.shoppingapp.retrofit.FakeStoreService
-import com.example.shoppingapp.retrofit.ProductModel
+import com.example.shoppingapp.model.ProductModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
