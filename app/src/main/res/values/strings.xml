@@ -9,4 +9,5 @@
     <string name="hello_user">Hello User!</string>
     <string name="shopping_cart_name">Shopping Cart</string>
     <string name="recommended_block_name">Recommended</string>
+    <string name="product_image">Product_Image</string>
 </resources>

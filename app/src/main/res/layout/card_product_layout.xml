@@ -19,7 +19,8 @@
             android:id="@+id/product_imageView"
             android:layout_width="match_parent"
             android:layout_height="128dp"
-            />
+            android:contentDescription="@string/product_image" />
+
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/card_divider"
             android:layout_width="match_parent"
