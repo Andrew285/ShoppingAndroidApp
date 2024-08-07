@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppingapp.R
 import com.example.shoppingapp.databinding.FragmentHomeBinding
+import com.example.shoppingapp.model.ProductModel
 import com.example.shoppingapp.viewmodel.MainActivityViewModel
 import com.example.shoppingapp.viewmodel.UiState
 
@@ -49,6 +50,13 @@ class HomeFragment : Fragment() {
         val recommendedProductsRV = view?.findViewById<RecyclerView>(R.id.recommended_recyclerView)
         val linearLayoutManager = LinearLayoutManager(view?.context, RecyclerView.HORIZONTAL, false)
         val adapter = view?.let { ProductAdapter(it.context, uiState.productsList) }
+        adapter?.setOnClickListener(object:
+            ProductAdapter.OnClickListener {
+            override fun onClick(position: Int, product: ProductModel) {
+
+                }
+            }
+        )
         if (recommendedProductsRV != null) {
             recommendedProductsRV.layoutManager = linearLayoutManager
         }

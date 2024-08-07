@@ -9,14 +9,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shoppingapp.R
+import com.example.shoppingapp.databinding.CardProductLayoutBinding
 import com.example.shoppingapp.model.ProductModel
 
 class ProductAdapter(private val context: Context, private val productList: ArrayList<ProductModel>):
 RecyclerView.Adapter<ProductAdapter.ViewHolder>()
 {
+    private var onClickListener: OnClickListener? = null
+
+    interface OnClickListener {
+        fun onClick(position: Int, product: ProductModel)
+    }
+
+    fun setOnClickListener(listener: OnClickListener) {
+        onClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_product_layout, parent, false)
-        return ViewHolder(view)
+//        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_product_layout, parent, false)
+        val binding = CardProductLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -24,6 +36,10 @@ RecyclerView.Adapter<ProductAdapter.ViewHolder>()
         holder.productNameTV.text = currentProduct.title
         holder.categoryNameTV.text = currentProduct.category
         Glide.with(holder.imageView.context).load(currentProduct.image).into(holder.imageView)
+
+        holder.itemView.setOnClickListener {
+            onClickListener?.onClick(position, productList[position])
+        }
     }
 
     override fun getItemCount(): Int {
