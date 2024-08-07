@@ -3,7 +3,10 @@ package com.example.shoppingapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import com.example.shoppingapp.view.CategoriesFragment
+import com.example.shoppingapp.view.FavouriteFragment
+import com.example.shoppingapp.view.HomeFragment
+import com.example.shoppingapp.view.MoreFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

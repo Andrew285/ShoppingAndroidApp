@@ -1,4 +1,4 @@
-package com.example.shoppingapp
+package com.example.shoppingapp.view
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.shoppingapp.R
 import com.example.shoppingapp.model.ProductModel
 
 class ProductAdapter(private val context: Context, private val productList: ArrayList<ProductModel>):

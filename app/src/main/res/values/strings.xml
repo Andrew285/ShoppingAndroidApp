@@ -10,4 +10,13 @@
     <string name="shopping_cart_name">Shopping Cart</string>
     <string name="recommended_block_name">Recommended</string>
     <string name="product_image">Product_Image</string>
+    <string name="product_name">Product_Name</string>
+    <string name="category">Category</string>
+    <string name="reviews">Reviews</string>
+    <string name="product_details_image">Product_Details_Image</string>
+    <string name="reg">Reg:</string>
+    <string name="details">Details</string>
+    <string name="off">OFF</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="buy_now">Buy now</string>
 </resources>
