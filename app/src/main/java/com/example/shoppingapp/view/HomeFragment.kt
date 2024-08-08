@@ -53,7 +53,19 @@ class HomeFragment : Fragment() {
         adapter?.setOnClickListener(object:
             ProductAdapter.OnClickListener {
             override fun onClick(position: Int, product: ProductModel) {
+                    val bundle = Bundle()
+                    bundle.putParcelable("productModel", product)
 
+                    val detailsFragment = ProductDetailsFragment()
+                    detailsFragment.apply {
+                        arguments = bundle
+                    }
+
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, detailsFragment)
+                        .addToBackStack(null)
+                        .commit()
                 }
             }
         )
