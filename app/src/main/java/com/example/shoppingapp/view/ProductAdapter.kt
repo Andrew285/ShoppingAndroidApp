@@ -26,7 +26,6 @@ RecyclerView.Adapter<ProductAdapter.ViewHolder>()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_product_layout, parent, false)
         val binding = CardProductLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding.root)
     }
@@ -34,8 +33,16 @@ RecyclerView.Adapter<ProductAdapter.ViewHolder>()
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentProduct = productList[position]
         holder.productNameTV.text = currentProduct.title
-        holder.categoryNameTV.text = currentProduct.category
-        Glide.with(holder.imageView.context).load(currentProduct.image).into(holder.imageView)
+        holder.categoryNameTV.text = currentProduct.category?.name
+
+        val trimmedImageString = currentProduct.images[0]
+            .replace("[", "")
+            .replace("]", "")
+            .replace("\"", "")
+
+        Glide.with(holder.imageView.context)
+            .load(trimmedImageString)
+            .into(holder.imageView)
 
         holder.itemView.setOnClickListener {
             onClickListener?.onClick(position, productList[position])

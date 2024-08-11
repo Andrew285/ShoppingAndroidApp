@@ -10,9 +10,11 @@ data class ProductModel(
     val title: String?,
     val price: Float,
     val description: String?,
-    val category: String?,
-    val image: String?,
-    val rating: ProductRating?
+    val images: ArrayList<String>,
+    val creationAt: String?,
+    val updatedAt: String?,
+    val category: CategoryModel?
+
 ) : Parcelable {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     constructor(parcel: Parcel) : this(
@@ -20,18 +22,20 @@ data class ProductModel(
         parcel.readString(),
         parcel.readFloat(),
         parcel.readString(),
+        parcel.createStringArrayList() ?: arrayListOf(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readParcelable(ProductRating::class.java.classLoader, ProductRating::class.java)
+        parcel.readParcelable(CategoryModel::class.java.classLoader, CategoryModel::class.java)
     )
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(title)
         parcel.writeFloat(price)
         parcel.writeString(description)
-        parcel.writeString(category)
-        parcel.writeString(image)
-        parcel.writeParcelable(rating, flags)
+        parcel.writeStringList(images)
+        parcel.writeString(creationAt)
+        parcel.writeString(updatedAt)
+        parcel.writeParcelable(category, flags)
     }
 
     override fun describeContents(): Int {

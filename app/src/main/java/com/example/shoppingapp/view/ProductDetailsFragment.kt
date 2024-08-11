@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.shoppingapp.R
 import com.example.shoppingapp.databinding.FragmentProductDetailsBinding
 import com.example.shoppingapp.model.ProductModel
+import kotlin.random.Random
 
 class ProductDetailsFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailsBinding
@@ -34,14 +35,18 @@ class ProductDetailsFragment : Fragment() {
 
         binding.apply {
             productDetailsName.text = productModel.title
-            categoryDetailsName.text = productModel.category
+            categoryDetailsName.text = productModel.category?.name
             productPrice.text = "$" + productModel.price.toString()
             productDescription.text = productModel.description
-            ratingBar.rating = productModel.rating!!.rate
-            countReviews.text = productModel.rating!!.count.toString() + " Reviews"
-            Glide.with(requireContext()).load(productModel.image).into(productImageView)
-        }
+            ratingBar.rating = Random.nextFloat() * 5
+            countReviews.text = Random.nextInt(0, 2000).toString() + " Reviews"
 
+            val trimmedImageString = productModel.images[0]
+                .replace("[", "")
+                .replace("]", "")
+                .replace("\"", "")
+            Glide.with(requireContext()).load(trimmedImageString).into(productImageView)
+        }
         return binding.root
     }
 }

@@ -19,4 +19,7 @@
     <string name="off">OFF</string>
     <string name="add_to_cart">Add To Cart</string>
     <string name="buy_now">Buy now</string>
+    <string name="shop">Shop</string>
+    <string name="by_category">By Category</string>
+    <string name="category_name">Category Name</string>
 </resources>

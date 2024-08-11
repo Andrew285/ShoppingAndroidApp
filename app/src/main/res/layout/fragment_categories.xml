@@ -1,15 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9C27B0"
-    tools:context=".view.CategoriesFragment">
+    tools:context=".view.CategoriesFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/up_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="220dp"
+        android:background="#3F51B5">
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/hello_user_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/hello_user"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#3F51B5"
+                android:contentDescription="@string/shopping_cart_name"
+                android:scaleType="centerInside"
+                android:src="@drawable/shopping_bag_icon"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/shop_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="start"
+            android:text="@string/shop"
+            android:textColor="@color/white"
+            android:textSize="45sp"
+            android:layout_below="@+id/toolbar_layout"/>
+
+        <TextView
+            android:id="@+id/by_category_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="start"
+            android:text="@string/by_category"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="45sp"
+            android:layout_below="@+id/shop_textView"/>
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/categories_gridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

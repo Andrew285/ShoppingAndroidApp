@@ -1,6 +1,7 @@
 package com.example.shoppingapp.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.example.shoppingapp.model.CategoryModel
 import com.example.shoppingapp.retrofit.FakeStoreService
 import com.example.shoppingapp.model.ProductModel
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +20,7 @@ class MainActivityViewModel: BaseViewModel<UiState>() {
             CoroutineScope(Dispatchers.IO).async {
                 try {
                     val retrofit = Retrofit.Builder()
-                        .baseUrl("https://fakestoreapi.com/")
+                        .baseUrl("https://api.escuelajs.co/api/v1/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
                     val service = retrofit.create(FakeStoreService::class.java)
@@ -31,6 +32,29 @@ class MainActivityViewModel: BaseViewModel<UiState>() {
 
             if (recommendedProductsList.isNotEmpty()) {
                 uiState.value = UiState.Success(recommendedProductsList)
+            }
+        }
+    }
+
+    fun loadCategoriesData() {
+        uiState.value = UiState.Loading
+        var categoriesList: ArrayList<CategoryModel> = ArrayList()
+        viewModelScope.launch {
+            CoroutineScope(Dispatchers.IO).async {
+                try {
+                    val retrofit = Retrofit.Builder()
+                        .baseUrl("https://api.escuelajs.co/api/v1/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                    val service = retrofit.create(FakeStoreService::class.java)
+                    categoriesList = service.getAllCategories()
+                } catch (e: Exception) {
+                    uiState.value = UiState.Error("Network request failed")
+                }
+            }.await()
+
+            if (categoriesList.isNotEmpty()) {
+                uiState.value = UiState.SuccessCategory(categoriesList)
             }
         }
     }

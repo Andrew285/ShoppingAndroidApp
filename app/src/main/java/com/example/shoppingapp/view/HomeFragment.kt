@@ -93,6 +93,8 @@ class HomeFragment : Fragment() {
             is UiState.Error -> {
                 onError(uiState)
             }
+
+            else -> {}
         }
     }
 }
