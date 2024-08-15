@@ -27,6 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
+            android:id="@+id/shopping_cart_imageButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"

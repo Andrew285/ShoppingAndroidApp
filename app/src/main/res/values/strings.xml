@@ -22,4 +22,8 @@
     <string name="shop">Shop</string>
     <string name="by_category">By Category</string>
     <string name="category_name">Category Name</string>
+    <string name="edit_cart_list">Edit</string>
+    <string name="delivery">Delivery</string>
+    <string name="total">Total</string>
+    <string name="proceed_to_checkout">Proceed To Checkout</string>
 </resources>

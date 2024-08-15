@@ -29,7 +29,12 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater,container,false);
+        binding = FragmentHomeBinding.inflate(inflater,container,false)
+
+        binding.shoppingCartImageButton.setOnClickListener{
+            parentFragmentManager.beginTransaction().replace(R.id.fragment_container, CartFragment()).commit()
+        }
+
         viewModel.uiState()
             .observe(viewLifecycleOwner, Observer { uiState ->
                 if (uiState != null) {
