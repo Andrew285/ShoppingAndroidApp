@@ -6,16 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.shoppingapp.R
 import com.example.shoppingapp.databinding.FragmentProductDetailsBinding
 import com.example.shoppingapp.model.ProductModel
+import com.example.shoppingapp.viewmodel.CartViewModel
 import kotlin.random.Random
 
 class ProductDetailsFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailsBinding
     private lateinit var productModel: ProductModel
+    private val cartViewModel: CartViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +37,6 @@ class ProductDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
-
         binding.apply {
             productDetailsName.text = productModel.title
             categoryDetailsName.text = productModel.category?.name
@@ -45,7 +49,11 @@ class ProductDetailsFragment : Fragment() {
                 .replace("[", "")
                 .replace("]", "")
                 .replace("\"", "")
-            Glide.with(requireContext()).load(trimmedImageString).into(productImageView)
+
+            addToCartBtn.setOnClickListener {
+                cartViewModel.addToCart(productModel)
+                Toast.makeText(requireContext(), "Product is added to cart", Toast.LENGTH_LONG).show()
+            }
         }
         return binding.root
     }

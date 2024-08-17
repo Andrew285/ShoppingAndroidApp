@@ -26,4 +26,7 @@
     <string name="delivery">Delivery</string>
     <string name="total">Total</string>
     <string name="proceed_to_checkout">Proceed To Checkout</string>
+    <string name="productprice">productPrice</string>
+    <string name="deacrease_amount_button">deacrease_amount_button</string>
+    <string name="zero">0</string>
 </resources>
