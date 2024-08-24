@@ -1,16 +1,19 @@
 package com.example.shoppingapp.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.shoppingapp.R
 import com.example.shoppingapp.databinding.FragmentCartBinding
+import com.example.shoppingapp.model.ProductModel
 import com.example.shoppingapp.viewmodel.CartViewModel
 
 class CartFragment : Fragment() {
@@ -28,12 +31,16 @@ class CartFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
-        val cartProducts = cartViewModel.cartProducts.value
-        val adapter = cartProducts?.let { CartAdapter(requireContext(), it) }
+        cartViewModel.cartProducts.observe(viewLifecycleOwner, Observer { cartProducts ->
+            if (cartProducts != null) {
+                // Set up RecyclerView adapter and layout manager here
+                val adapter = CartAdapter(cartProducts)
+                binding.cartItemsRecyclerView.adapter = adapter
 
-        binding.cartItemsRecyclerView.adapter = adapter
-        val linearLayoutManager = LinearLayoutManager(view?.context, RecyclerView.HORIZONTAL, false)
-        binding.cartItemsRecyclerView.layoutManager = linearLayoutManager
+                val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                binding.cartItemsRecyclerView.layoutManager = linearLayoutManager
+            }
+        })
 
         return binding.root
     }

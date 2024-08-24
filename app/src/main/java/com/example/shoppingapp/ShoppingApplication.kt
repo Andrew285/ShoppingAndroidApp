@@ -7,7 +7,6 @@ import com.example.shoppingapp.database.ProductDatabase
 class ShoppingApplication: Application() {
 
     companion object {
-        @Volatile
         private lateinit var databaseInstance: ProductDatabase
 
         val database: ProductDatabase

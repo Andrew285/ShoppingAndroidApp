@@ -1,6 +1,5 @@
 package com.example.shoppingapp.view
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import com.example.shoppingapp.R
 import com.example.shoppingapp.databinding.CardProductLayoutBinding
 import com.example.shoppingapp.model.ProductModel
 
-class ProductAdapter(private val context: Context, private val productList: ArrayList<ProductModel>):
+class ProductAdapter(private val productList: ArrayList<ProductModel>):
 RecyclerView.Adapter<ProductAdapter.ViewHolder>()
 {
     private var onClickListener: OnClickListener? = null

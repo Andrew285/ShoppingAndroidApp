@@ -14,8 +14,7 @@ import com.example.shoppingapp.model.ProductModel
 import com.example.shoppingapp.viewmodel.CartViewModel
 
 class CartAdapter(
-    val context: Context,
-    val cartProducts: List<ProductModel>
+    private val cartProducts: List<ProductModel>
 ): RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
 
@@ -26,8 +25,8 @@ class CartAdapter(
 
         init {
             productImageView = itemView.findViewById(R.id.cart_product_imageView)
-            productNameTextView = itemView.findViewById(R.id.product_name_textView)
-            productPriceTextView = itemView.findViewById(R.id.product_price)
+            productNameTextView = itemView.findViewById(R.id.cart_product_name_textView)
+            productPriceTextView = itemView.findViewById(R.id.cart_product_price_textView)
         }
     }
 
@@ -45,6 +44,14 @@ class CartAdapter(
 
         holder.productNameTextView.text = product.title
         holder.productPriceTextView.text = product.price.toString()
-        Glide.with(context).load(product.images[0]).into(holder.productImageView)
+
+        val trimmedImageString = product.images[0]
+            .replace("[", "")
+            .replace("]", "")
+            .replace("\"", "")
+
+        Glide.with(holder.productImageView.context)
+            .load(trimmedImageString)
+            .into(holder.productImageView)
     }
 }

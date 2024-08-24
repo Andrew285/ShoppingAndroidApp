@@ -1,5 +1,6 @@
 package com.example.shoppingapp.database
 
+import android.util.Log
 import com.example.shoppingapp.ShoppingApplication
 import com.example.shoppingapp.model.ProductModel
 

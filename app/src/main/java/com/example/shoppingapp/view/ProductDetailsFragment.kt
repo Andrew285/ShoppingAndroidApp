@@ -37,6 +37,13 @@ class ProductDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.apply {
             productDetailsName.text = productModel.title
             categoryDetailsName.text = productModel.category?.name
@@ -50,11 +57,16 @@ class ProductDetailsFragment : Fragment() {
                 .replace("]", "")
                 .replace("\"", "")
 
+            context?.let {
+                Glide.with(it)
+                    .load(trimmedImageString)
+                    .into(binding.productImageView)
+            }
+
             addToCartBtn.setOnClickListener {
                 cartViewModel.addToCart(productModel)
                 Toast.makeText(requireContext(), "Product is added to cart", Toast.LENGTH_LONG).show()
             }
         }
-        return binding.root
     }
 }

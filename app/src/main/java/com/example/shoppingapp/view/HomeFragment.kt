@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
         progressBar.visibility = View.GONE
         val recommendedProductsRV = view?.findViewById<RecyclerView>(R.id.recommended_recyclerView)
         val linearLayoutManager = LinearLayoutManager(view?.context, RecyclerView.HORIZONTAL, false)
-        val adapter = view?.let { ProductAdapter(it.context, uiState.productsList) }
+        val adapter = view?.let { ProductAdapter(uiState.productsList) }
         adapter?.setOnClickListener(object:
             ProductAdapter.OnClickListener {
             override fun onClick(position: Int, product: ProductModel) {
