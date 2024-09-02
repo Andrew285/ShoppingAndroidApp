@@ -16,7 +16,7 @@ import com.example.shoppingapp.databinding.FragmentCartBinding
 import com.example.shoppingapp.model.ProductModel
 import com.example.shoppingapp.viewmodel.CartViewModel
 
-class CartFragment : Fragment() {
+class CartFragment : Fragment(), IProductAmountChanged {
     private lateinit var binding: FragmentCartBinding
     private val cartViewModel: CartViewModel by viewModels()
 
@@ -34,14 +34,32 @@ class CartFragment : Fragment() {
         cartViewModel.cartProducts.observe(viewLifecycleOwner, Observer { cartProducts ->
             if (cartProducts != null) {
                 // Set up RecyclerView adapter and layout manager here
-                val adapter = CartAdapter(cartProducts)
+                val adapter = CartAdapter(cartProducts, this)
                 binding.cartItemsRecyclerView.adapter = adapter
 
                 val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 binding.cartItemsRecyclerView.layoutManager = linearLayoutManager
             }
+
+            cartViewModel.calculatePrices()
+        })
+
+        cartViewModel.subTotalPrice.observe(viewLifecycleOwner, Observer {subTotalPrice ->
+            binding.subtotalPriceTextView.text = subTotalPrice.toString()
+        })
+
+        cartViewModel.deliveryPrice.observe(viewLifecycleOwner, Observer {deliveryPrice ->
+            binding.deliveryPriceTextView.text = deliveryPrice.toString()
+        })
+
+        cartViewModel.totalPrice.observe(viewLifecycleOwner, Observer {totalPrice ->
+            binding.totalPriceTextView.text = totalPrice.toString()
         })
 
         return binding.root
+    }
+
+    override fun onChangeAmountListener(product: ProductModel, amount: Int) {
+        cartViewModel.calculatePrices(product, amount)
     }
 }

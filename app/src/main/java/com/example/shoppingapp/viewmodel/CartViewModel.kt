@@ -20,9 +20,13 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
     // MutableLiveData to hold the cart items
     val _cartItems = MutableLiveData<List<ProductModel>>()
     val cartProducts: LiveData<List<ProductModel>> get() = _cartItems
+    var subTotalPrice = MutableLiveData<Double>()
+    var deliveryPrice = MutableLiveData<Double>()
+    var totalPrice = MutableLiveData<Double>()
 
     init {
         loadCartItems()
+        loadPrices()
     }
 
     private fun loadCartItems() {
@@ -32,6 +36,16 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    private fun loadPrices() {
+        subTotalPrice.value = 0.0
+        deliveryPrice.value = 20.0
+        calculateTotalPrice()
+    }
+
+    private fun calculateTotalPrice() {
+        totalPrice.value = subTotalPrice.value!! + deliveryPrice.value!!
+    }
+
     fun addToCart(product: ProductModel) {
         viewModelScope.launch {
             productRepository.insertToCartDB(product)
@@ -39,4 +53,30 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun calculatePrices(product: ProductModel, amount: Int) {
+        val productPrice = product.price.toDouble()
+        var newSubTotalPrice = 0.0
+
+        for (item: ProductModel in cartProducts.value!!) {
+            if (item.id == product.id) {
+                newSubTotalPrice += productPrice * amount
+            }
+            else {
+                newSubTotalPrice += item.price
+            }
+        }
+
+        subTotalPrice.value = newSubTotalPrice
+        calculateTotalPrice()
+    }
+
+    fun calculatePrices() {
+        var newSubTotalPrice = 0.0
+        for (item: ProductModel in cartProducts.value!!) {
+            newSubTotalPrice += item.price
+        }
+
+        subTotalPrice.value = newSubTotalPrice
+        calculateTotalPrice()
+    }
 }
