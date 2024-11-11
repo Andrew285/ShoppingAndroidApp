@@ -14,6 +14,7 @@ import com.example.shoppingapp.model.ProductModel
 import kotlinx.coroutines.launch
 import kotlin.coroutines.coroutineContext
 
+
 class CartViewModel(application: Application) : AndroidViewModel(application) {
     private var productRepository: ProductRepository = ProductRepository(ShoppingApplication.database)
 
@@ -42,7 +43,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         calculateTotalPrice()
     }
 
-    private fun calculateTotalPrice() {
+    fun calculateTotalPrice() {
         totalPrice.value = subTotalPrice.value!! + deliveryPrice.value!!
     }
 

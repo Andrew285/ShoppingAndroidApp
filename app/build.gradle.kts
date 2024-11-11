@@ -2,6 +2,10 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+
+    // Add the Google services Gradle plugin
+    id("com.google.gms.google-services")
+
 }
 
 android {
@@ -41,7 +45,7 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.test:core-ktx:1.6.1")
     val room_version = "2.6.1"
 
     implementation("androidx.room:room-runtime:$room_version")
@@ -62,11 +66,32 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
+    // Firebase BoM (manage versions automatically)
+    implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
+
+    // Firebase Messaging
+    implementation("com.google.firebase:firebase-messaging") // No need to specify version, it's managed by BoM
+
+    // Firebase Analytics (if you want to use Analytics)
+    implementation("com.google.firebase:firebase-analytics")
+
+    //tests
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    testImplementation("org.mockito:mockito-inline:4.0.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation("org.robolectric:robolectric:4.10")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    testImplementation(kotlin("test"))
+
+    // Other dependencies
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
+
